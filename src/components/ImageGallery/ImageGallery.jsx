@@ -38,7 +38,6 @@ export const ImageGallery = ({ onScroll, totalPages, page, pictures }) => {
       onClick={handleModalOpen}
     />
   ));
-  console.log('test');
   return (
     <>
       <ul className={css.gallery} ref={galleryRef}>
