@@ -4,6 +4,7 @@ import css from './App.module.css';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Loader } from './Loader/Loader';
 import { Searchbar } from './Searchbar/Searchbar';
+import { AppContext } from './AppContext';
 
 const safeSearch = false;
 const amount = 12;
@@ -90,18 +91,27 @@ export const App = () => {
   }, [page]);
 
   return (
-    <div className={css.app}>
-      <Searchbar onSubmit={handleSubmit} />
-      {fetchingImages && <Loader />}
-      {pictures.length > 0 && (
-        <ImageGallery
-          pictures={pictures}
-          page={page}
-          totalPages={totalPages}
-          onButtonClick={handlePaginationLoader}
-          onScroll={handleScrollPage}
-        />
-      )}
-    </div>
+    <AppContext.Provider
+      value={{
+        pictures,
+        page,
+        totalPages,
+        handlePaginationLoader,
+        handleScrollPage,
+      }}
+    >
+      <div className={css.app}>
+        <Searchbar onSubmit={handleSubmit} />
+        {fetchingImages && <Loader />}
+        {pictures.length > 0 && (
+          <ImageGallery
+            pictures={pictures}
+            page={page}
+            totalPages={totalPages}
+            onScroll={handleScrollPage}
+          />
+        )}
+      </div>
+    </AppContext.Provider>
   );
 };

@@ -5,13 +5,7 @@ import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 import { Button } from './Button/Button';
 import { Modal } from './Modal/Modal';
 
-export const ImageGallery = ({
-  onScroll,
-  onButtonClick,
-  totalPages,
-  page,
-  pictures,
-}) => {
+export const ImageGallery = ({ onScroll, totalPages, page, pictures }) => {
   const [isModalOpen, SetIsModalOpen] = useState(false);
   const [selectedImage, SetSelectedImage] = useState('');
   const [selectedTags, SetSelectedTags] = useState('');
@@ -57,7 +51,7 @@ export const ImageGallery = ({
           onClick={handleModalClose}
         />
       )}
-      {page < totalPages && <Button onClick={onButtonClick} />}
+      {page < totalPages && <Button />}
     </>
   );
 };
