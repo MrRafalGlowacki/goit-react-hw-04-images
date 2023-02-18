@@ -88,6 +88,7 @@ export const App = () => {
   };
   useEffect(() => {
     handleFetchPictures(actualSearch);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   return (

@@ -17,6 +17,7 @@ export const ImageGallery = ({ onScroll, totalPages, page, pictures }) => {
 
   useEffect(() => {
     onScroll(cardHeight);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pictures]);
 
   const handleModalOpen = (largeImageURL, tags) => {
