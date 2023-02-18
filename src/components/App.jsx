@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Notiflix from 'notiflix';
 import css from './App.module.css';
 import { ImageGallery } from './ImageGallery/ImageGallery';
@@ -58,9 +58,9 @@ export const App = () => {
     }
   };
 
-  const handleScrollPage = cardHeight => {
+  const handleScrollPage = useCallback(cardHeight => {
     window.scrollBy({ top: cardHeight * 3, behavior: 'smooth' });
-  };
+  }, []);
 
   const handleSubmit = async (event, value) => {
     event.preventDefault();
@@ -84,12 +84,9 @@ export const App = () => {
   const handlePaginationLoader = () => {
     if (page < totalPages) {
       setPage(page + 1);
+      handleFetchPictures(actualSearch);
     }
   };
-  useEffect(() => {
-    handleFetchPictures(actualSearch);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
 
   return (
     <AppContext.Provider

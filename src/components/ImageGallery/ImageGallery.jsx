@@ -11,14 +11,13 @@ export const ImageGallery = ({ onScroll, totalPages, page, pictures }) => {
   const [selectedTags, SetSelectedTags] = useState('');
 
   const galleryRef = useRef();
-  const cardHeight =
-    galleryRef.current &&
-    galleryRef.current.firstElementChild.getBoundingClientRect().height;
 
   useEffect(() => {
+    const cardHeight =
+      galleryRef.current &&
+      galleryRef.current.firstElementChild.getBoundingClientRect().height;
     onScroll(cardHeight);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pictures]);
+  }, [onScroll, pictures.length]);
 
   const handleModalOpen = (largeImageURL, tags) => {
     SetIsModalOpen(true);
@@ -29,9 +28,9 @@ export const ImageGallery = ({ onScroll, totalPages, page, pictures }) => {
     SetIsModalOpen(false);
   };
 
-  const imagesList = pictures.map(pic => (
+  const imagesList = pictures.map((pic, index) => (
     <ImageGalleryItem
-      key={pic.id}
+      key={pic.id + '-' + index}
       id={pic.id}
       webformatURL={pic.webformatURL}
       largeImageURL={pic.largeImageURL}
@@ -39,7 +38,7 @@ export const ImageGallery = ({ onScroll, totalPages, page, pictures }) => {
       onClick={handleModalOpen}
     />
   ));
-
+  console.log('test');
   return (
     <>
       <ul className={css.gallery} ref={galleryRef}>
