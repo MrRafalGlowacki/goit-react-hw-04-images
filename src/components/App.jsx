@@ -91,11 +91,7 @@ export const App = () => {
   return (
     <AppContext.Provider
       value={{
-        pictures,
-        page,
-        totalPages,
         handlePaginationLoader,
-        handleScrollPage,
       }}
     >
       <div className={css.app}>

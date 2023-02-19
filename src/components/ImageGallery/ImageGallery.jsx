@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import css from './ImageGallery.module.css';
 import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
@@ -12,18 +12,23 @@ export const ImageGallery = ({ onScroll, totalPages, page, pictures }) => {
 
   const galleryRef = useRef();
 
-  useEffect(() => {
+  const handleScroll = useCallback(() => {
     const cardHeight =
       galleryRef.current &&
       galleryRef.current.firstElementChild.getBoundingClientRect().height;
     onScroll(cardHeight);
-  }, [onScroll, pictures.length]);
+  }, [onScroll]);
+
+  useEffect(() => {
+    handleScroll();
+  }, [handleScroll, pictures.length]);
 
   const handleModalOpen = (largeImageURL, tags) => {
     SetIsModalOpen(true);
     SetSelectedImage(largeImageURL);
     SetSelectedTags(tags);
   };
+  
   const handleModalClose = () => {
     SetIsModalOpen(false);
   };
@@ -38,7 +43,6 @@ export const ImageGallery = ({ onScroll, totalPages, page, pictures }) => {
       onClick={handleModalOpen}
     />
   ));
-  console.log('test');
   return (
     <>
       <ul className={css.gallery} ref={galleryRef}>
